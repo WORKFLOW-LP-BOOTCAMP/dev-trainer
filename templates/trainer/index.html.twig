@@ -14,18 +14,22 @@
 							<h5 class="card-title">{{ trainer.firstName }}
 								{{ trainer.lastName }}</h5>
 							<p class="card-text">{{ trainer.bio }}</p>
-							<a href="{{path('app_show', {id: trainer.id})}}" class="btn btn-primary">En savoir plus</a>
+							<a href="{{path('trainer_show', {id: trainer.id})}}" class="btn btn-primary">En savoir plus</a>
 						</div>
 					</div>
 				{% endfor %}
 			</div>
 			<div class="col-md">
-				{% for article in articles %}
-					<li>{{ article.title }}
-						<p>{{ article.date }}</p>
-						<p>{{ article.content }}</p>
-					</li>
-				{% endfor %}
+				{% if articles %}
+					{% for article in articles %}
+						<li>{{ article.title }}
+							<p>{{ article.date }}</p>
+							<p>{{ article.content }}</p>
+						</li>
+					{% endfor %}
+				{% else %}
+					<p>Aucun article</p>
+				{% endif %}
 			</div>
 		</div>
 	</div>
