@@ -39,9 +39,16 @@ class Trainer
     #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'trainer')]
     private Collection $articles;
 
+    /**
+     * @var Collection<int, Subject>
+     */
+    #[ORM\ManyToMany(targetEntity: Subject::class, mappedBy: 'trainers')]
+    private Collection $subjects;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,6 +142,33 @@ class Trainer
             if ($article->getTrainer() === $this) {
                 $article->setTrainer(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subject>
+     */
+    public function getSubjects(): Collection
+    {
+        return $this->subjects;
+    }
+
+    public function addSubject(Subject $subject): static
+    {
+        if (!$this->subjects->contains($subject)) {
+            $this->subjects->add($subject);
+            $subject->addTrainer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubject(Subject $subject): static
+    {
+        if ($this->subjects->removeElement($subject)) {
+            $subject->removeTrainer($this);
         }
 
         return $this;

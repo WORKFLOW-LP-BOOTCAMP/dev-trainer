@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TrainerController extends AbstractController
 {
-    #[Route('/trainers', name: 'app_trainer')]
+    #[Route('/trainers', name: 'trainer_trainers')]
     public function index(EntityManagerInterface $em): Response
     {
         $trainerRepository = $em->getRepository(Trainer::class); 
