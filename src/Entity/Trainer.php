@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: TrainerRepository::class)]
 class Trainer
@@ -27,6 +28,10 @@ class Trainer
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
+   
+
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $stars = null;
 
     /**
      * @var Collection<int, Article>
@@ -88,6 +93,19 @@ class Trainer
     public function setBio(?string $bio): static
     {
         $this->bio = $bio;
+
+        return $this;
+    }
+
+
+    public function getStars(): ?int
+    {
+        return $this->stars;
+    }
+
+    public function setStars(?int $stars): static
+    {
+        $this->stars = $stars;
 
         return $this;
     }

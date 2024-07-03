@@ -1,36 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
-{% endblock %}
+{% block title %}Hello TrainerController!{% endblock %}
 
 {% block body %}
-	<div class="container">
-		<div class="row">
-			<div class="col-md">
-				{% for trainer in trainers %}
-					<div class="card">
-						<h5 class="card-header">{{ trainer.profession }}</h5>
-						<div class="card-body">
-							<h5 class="card-title">{{ trainer.firstName }}
-								{{ trainer.lastName }}</h5>
-							<p class="card-text">{{ trainer.bio }}</p>
-							<a href="{{path('trainer_show', {id: trainer.id})}}" class="btn btn-primary">En savoir plus</a>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-			<div class="col-md">
-				{% if articles %}
-					{% for article in articles %}
-						<li>{{ article.title }}
-							<p>{{ article.date }}</p>
-							<p>{{ article.content }}</p>
-						</li>
-					{% endfor %}
-				{% else %}
-					<p>Aucun article</p>
-				{% endif %}
-			</div>
-		</div>
-	</div>
+
+   {% for trainer in trainers %}
+    <p>{{ trainer.firstName }}</p>
+    {% if trainer.articles %}
+        <ul>
+        {% for article in trainer.articles %}
+            <li>{{ article.title }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+   {% endfor %}
+
 {% endblock %}

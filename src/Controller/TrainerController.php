@@ -10,23 +10,18 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TrainerController extends AbstractController
 {
-    #[Route('/trainers', name: 'trainer_all')]
+    #[Route('/trainers', name: 'app_trainer')]
     public function index(EntityManagerInterface $em): Response
     {
-        $trainers = $em->getRepository(Trainer::class)->findAll();
+        $trainerRepository = $em->getRepository(Trainer::class); 
+
+        $trainers = $trainerRepository->findAll() ;
+
+        // permet d'afficher en arrêtant les scripts die 
+        // dd($trainers) ;
 
         return $this->render('trainer/index.html.twig', [
             'trainers' => $trainers,
-            'articles' => null
-        ]);
-    }
-
-    #[Route('/professor/{id}', name: 'trainer_show', defaults:['id' => 1], requirements: ['id' => '\d+'])]
-    public function show(Trainer $trainer): Response{
-        
-        return $this->render('trainer/show.html.twig', [
-            'trainer' => $trainer,
-            
         ]);
     }
 }

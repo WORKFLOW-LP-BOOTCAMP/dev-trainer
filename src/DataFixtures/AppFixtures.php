@@ -2,16 +2,31 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Article;
+use App\Entity\Subject;
 use App\Entity\Trainer;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+
+        $articles = [] ;
+        foreach( $this->getArticles() as ['title' => $title, 'created_at' => $createdAt, 'content' => $content]){
+            $a = new Article();
+            $a->setTitle($title);
+            $a->setCreatedAt(new \Datetime( $createdAt) );
+            $a->setContent($content);
+
+            $articles[] = $a ;
+
+            $manager->persist($a);
+        }
+
+        shuffle($articles) ;
 
         foreach ($this->data() as [
             'firstName' => $firsName,
@@ -24,6 +39,15 @@ class AppFixtures extends Fixture
             $trainer->setLastName($lastName);
             $trainer->setProfession($profession);
             $trainer->setBio($bio);
+            $trainer->setStars(random_int(1, 5));
+
+            $count = 0 ;
+            $rand =  random_int(1,3) ;
+            while( count($articles) > 0 && $count < $rand ) {
+                $articleTrainer = array_pop($articles) ;
+                $trainer->addArticle($articleTrainer);
+                $count++;
+            }
 
             $manager->persist($trainer);
         }
@@ -214,6 +238,62 @@ class AppFixtures extends Fixture
                 "lastName" => "F",
                 "profession" => "Product Manager",
                 "bio" => "Camille F manages the lifecycle of digital products from conception to launch."
+            ]
+        ];
+    }
+
+    public function getArticles(): array
+    {
+        return  [
+            [
+                'title' => 'Introduction au HTML',
+                'created_at' => '2024-07-01 10:00:00',
+                'content' => 'Cet article couvre les bases du HTML, le langage de balisage utilisé pour créer des pages Web.'
+            ],
+            [
+                'title' => 'Comprendre le CSS',
+                'created_at' => '2024-06-30 12:00:00',
+                'content' => 'Apprenez à utiliser le CSS pour styliser vos pages Web et améliorer leur apparence visuelle.'
+            ],
+            [
+                'title' => 'Guide du JavaScript',
+                'created_at' => '2024-06-29 14:00:00',
+                'content' => 'Un guide complet sur JavaScript, le langage de programmation qui permet d\'ajouter des fonctionnalités interactives aux sites Web.'
+            ],
+            [
+                'title' => 'Introduction à PHP',
+                'created_at' => '2024-06-28 16:00:00',
+                'content' => 'Découvrez les bases de PHP, un langage de script côté serveur utilisé pour le développement Web.'
+            ],
+            [
+                'title' => 'Bases de MySQL',
+                'created_at' => '2024-06-27 18:00:00',
+                'content' => 'Un aperçu des bases de données MySQL et comment les utiliser pour stocker et gérer des données pour vos applications Web.'
+            ],
+            [
+                'title' => 'Introduction à Node.js',
+                'created_at' => '2024-06-26 20:00:00',
+                'content' => 'Apprenez les fondamentaux de Node.js, un environnement d\'exécution JavaScript côté serveur.'
+            ],
+            [
+                'title' => 'Utilisation de Git et GitHub',
+                'created_at' => '2024-06-25 22:00:00',
+                'content' => 'Un guide sur l\'utilisation de Git pour le contrôle de version et GitHub pour l\'hébergement de code.'
+            ],
+            [
+                'title' => 'Créer des API RESTful avec PHP',
+                'created_at' => '2024-06-24 08:00:00',
+                'content' => 'Découvrez comment créer des API RESTful avec PHP pour permettre à vos applications de communiquer entre elles.'
+            ],
+            [
+                'title' => 'Développement Web avec Laravel',
+                'created_at' => '2024-06-23 09:00:00',
+                'content' => 'Une introduction à Laravel, un framework PHP populaire pour le développement Web.'
+            ],
+            [
+                'title' => 'Sécurité Web : Les bases',
+                'created_at' => '2024-06-22 11:00:00',
+                'content' => 'Comprenez les principes de base de la sécurité Web pour protéger vos applications contre les attaques courantes.'
             ]
         ];
     }
