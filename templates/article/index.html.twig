@@ -13,8 +13,11 @@
 					<div class="card">
 						<h5 class="card-header">{{ article.title }}</h5>
 						<div class="card-body">
-							<h5 class="card-title">{{ article.trainer.firstName }}
+                            {% if article.trainer %}
+							<h5 class="card-title">
+                            {{article.trainer.firstName}}
 							</h5>
+                            {% endif %}
 						</div>
 					</div>
 				{% endfor %}
