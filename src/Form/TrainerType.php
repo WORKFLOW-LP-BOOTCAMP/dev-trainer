@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class TrainerType extends AbstractType
 {
@@ -25,7 +26,19 @@ class TrainerType extends AbstractType
             ])
             ->add('profession')
             ->add('bio')
-            ->add('stars')
+            ->add('stars', ChoiceType::class, [
+                'label' => 'Rating',
+                'choices'  => [
+                    '-1' => -1,
+                    '0' => 0,
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                    '6' => 6,
+                ],
+            ])
             ->add('subjects', EntityType::class, [
                 'class' => Subject::class,
                 'choice_label' => 'name',

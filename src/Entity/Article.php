@@ -24,6 +24,7 @@ class Article
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(name: "trainer_id", referencedColumnName: "id", onDelete: "SET NULL")]
     private ?Trainer $trainer = null;
 
     public function getId(): ?int

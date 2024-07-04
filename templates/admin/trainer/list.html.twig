@@ -1,37 +1,46 @@
 {% extends "admin.html.twig" %}
 
-{% block body %} 
-<h1 class="mb-4">Trainers List</h1>
-<a href="{{ path('app_trainer_create')}}" class="btn btn-primary mb-3">Create New Trainer</a>
-<table class="table table-success table-striped">
-    <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Profession</th>
-            <th>Subjects</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for trainer in trainers %}
-            <tr>
-                <td>{{ trainer.firstName }}</td>
-                <td>{{ trainer.lastName }}</td>
-                <td>{{ trainer.profession }}</td>
-                <td>
-                {% if trainer.subjects %}
-                {% for subject in trainer.subjects %}
-                    <span>{{subject.name}}</span>
-                {% endfor %}
-                {% endif %}
-                </td>
-                <td>
-                    <a href="{{path('app_trainer_show', {id: trainer.id})}}" class="btn btn-info btn-sm">View</a>
-                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% block body %}
+	<h1 class="mb-4">Trainers List</h1>
+	<a href="{{ path('app_trainer_create')}}" class="btn btn-primary mb-3">Create New Trainer</a>
+	<table class="table table-success table-striped">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Profession</th>
+				<th>Articles</th>
+				<th>Subjects</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for trainer in trainers %}
+				<tr>
+					<td>{{ trainer.firstName }}</td>
+					<td>{{ trainer.lastName }}</td>
+					<td>{{ trainer.profession }}</td>
+					<td>{{ trainer.articles | length }}</td>
+					<td>
+						{% if trainer.subjects %}
+							{% for subject in trainer.subjects %}
+								<span>{{subject.name}}</span>
+							{% endfor %}
+						{% endif %}
+					</td>
+					<td>
+						<a href="{{path('app_admin_trainer_show', {id: trainer.id})}}" class="btn btn-info btn-sm">View</a>
+						<a href="#" class="btn btn-warning btn-sm">Edit</a>
+						<form action="{{ path('delete_trainer', {id: trainer.id}) }}" method="post" style="display:inline;">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trainer.id) }}">
+							<div data-controller="trainer" style="display:inline;" >
+								<button data-controller="confirmation" data-action="click->confirmation#showConfirmation" type="submit" class="btn btn-danger btn-sm">Delete</button>
+							</div>
+						</form>
+                       
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

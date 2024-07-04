@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinTable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrainerRepository::class)]
 class Trainer
@@ -29,20 +29,21 @@ class Trainer
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
    
-
+    #[Assert\LessThan(value :6, message: 'valeur trop grande' )]
+    #[Assert\GreaterThan(value :-1, message: 'valeur trop petite' )]
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $stars = null;
 
     /**
      * @var Collection<int, Article>
      */
-    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'trainer')]
+    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'trainer',cascade: ['detach'], orphanRemoval: false)]
     private Collection $articles;
 
     /**
      * @var Collection<int, Subject>
      */
-    #[ORM\ManyToMany(targetEntity: Subject::class, mappedBy: 'trainers')]
+    #[ORM\ManyToMany(targetEntity: Subject::class, mappedBy: 'trainers', cascade: ['detach'], orphanRemoval: false)]
     private Collection $subjects;
 
     public function __construct()
