@@ -3,12 +3,13 @@
 {% block body %} 
 <h1 class="mb-4">Trainers List</h1>
 <a href="{{ path('app_trainer_create')}}" class="btn btn-primary mb-3">Create New Trainer</a>
-<table class="table table-bordered">
+<table class="table table-success table-striped">
     <thead>
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Profession</th>
+            <th>Subjects</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -19,7 +20,14 @@
                 <td>{{ trainer.lastName }}</td>
                 <td>{{ trainer.profession }}</td>
                 <td>
-                    <a href="#" class="btn btn-info btn-sm">View</a>
+                {% if trainer.subjects %}
+                {% for subject in trainer.subjects %}
+                    <span>{{subject.name}}</span>
+                {% endfor %}
+                {% endif %}
+                </td>
+                <td>
+                    <a href="{{path('app_trainer_show', {id: trainer.id})}}" class="btn btn-info btn-sm">View</a>
                     <a href="#" class="btn btn-warning btn-sm">Edit</a>
                 </td>
             </tr>

@@ -1,0 +1,12 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+<h1 class="mb-4">{{ trainer.firstName }} {{ trainer.lastName }}</h1>
+<p><strong>Profession:</strong> {{ trainer.profession }}</p>
+<p><strong>Bio:</strong> {{ trainer.bio }}</p>
+<p><strong>Stars:</strong> {{ trainer.stars }}</p>
+<form action="#" method="post" style="display:inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trainer.id) }}">
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+{% endblock %}
