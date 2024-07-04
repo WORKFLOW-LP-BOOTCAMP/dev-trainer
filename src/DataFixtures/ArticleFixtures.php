@@ -11,7 +11,6 @@ class ArticleFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-       
         foreach ($this->getArticles() as ['title' => $title, 'created_at' => $createdAt, 'content' => $content]) {
             $a = new Article();
             $a->setTitle($title);

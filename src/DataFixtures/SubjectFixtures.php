@@ -11,7 +11,6 @@ class SubjectFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        
         foreach ($this->getSubjects() as ['name' => $name]) {
             $s = new Subject();
             $s->setName($name);
@@ -21,7 +20,6 @@ class SubjectFixtures extends Fixture
 
         $manager->flush();
     }
-
 
     public function getSubjects(): array
     {

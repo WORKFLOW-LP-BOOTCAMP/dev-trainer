@@ -14,6 +14,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
        
+        // repository pour récupérer les données dans la base de données
         $articles = $manager->getRepository(Article::class)->findAll();
         $subjects = $manager->getRepository(Subject::class)->findAll();
 
@@ -244,6 +245,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
+    // cette méthode permet de définir l'ordre dans lequel les fixtures doivent se faire, ce comportement est défini dans l'interface que la classe AppFixture implémente, attention l'implémentation de cette interface est nécessaire.
     public function getDependencies() {
 
         return [
