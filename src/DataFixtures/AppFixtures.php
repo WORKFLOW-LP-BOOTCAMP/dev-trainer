@@ -13,30 +13,10 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // création des subjects seuls
-        $subjects = [];
-        foreach ($this->getSubjects() as ['name' => $name]) {
-            $s = new Subject();
-            $s->setName($name);
+       
+        $articles = $manager->getRepository(Article::class)->findAll();
+        $subjects = $manager->getRepository(Subject::class)->findAll();
 
-            $subjects[] = $s; // on stocke les objets pour les reliés au trainers plus bas
-
-            $manager->persist($s);
-        }
-
-        // création des atricles 
-        $articles = [];
-        foreach ($this->getArticles() as ['title' => $title, 'created_at' => $createdAt, 'content' => $content]) {
-            $a = new Article();
-            $a->setTitle($title);
-            $a->setCreatedAt(new \Datetime($createdAt));
-            $a->setContent($content);
-
-            $articles[] = $a;
-
-            $manager->persist($a);
-        }
-        
         // boucle qui crée les trainers
         foreach ($this->data() as [
             'firstName' => $firsName,
