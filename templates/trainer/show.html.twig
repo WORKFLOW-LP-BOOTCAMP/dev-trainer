@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TrainerController!{% endblock %}
+
+{% block body %}
+
+{% if trainer %}
+<ul>
+    <li>{{trainer.firstName}}</li>
+    {% if trainer.subjects %}
+    <ul>
+        {% for subject in trainer.subjects %}
+        <li>{{ subject.name }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</ul>
+{% else %}
+<p>Aucun trainer</p>
+{% endif %}
+
+{% endblock %}

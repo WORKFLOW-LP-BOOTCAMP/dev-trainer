@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trainer;
+use App\Repository\TrainerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,16 @@ class TrainerController extends AbstractController
 
         return $this->render('trainer/index.html.twig', [
             'trainers' => $trainers,
+        ]);
+    }
+
+    #[Route('/trainer/{id}', name: 'app_trainer_show')]
+    public function show( int $id, TrainerRepository $trainerRepository ):Response {
+
+        $trainer = $trainerRepository->find($id) ;
+
+        return $this->render('trainer/show.html.twig', [
+            'trainer' => $trainer
         ]);
     }
 }
