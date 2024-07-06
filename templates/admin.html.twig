@@ -14,13 +14,12 @@
 <body>
     {% include('/partials/menu-admin.html.twig') %}
      {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
+            <div class="alert alert-success"> 
                 {{ message }}
             </div>
         {% endfor %}
     <div class="container mt-4">
         {% block body %}{% endblock %}
     </div>
-
 </body>
 </html>

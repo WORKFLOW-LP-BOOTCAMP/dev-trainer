@@ -18,14 +18,17 @@ class TrainerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            // TextType::class définit le type des champs
             ->add('firstName', TextType::class, [
-                'label' => 'FirstName'
+                'label' => 'FirstName',
+                'required' => false
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'LastName'
             ])
             ->add('profession')
             ->add('bio')
+            // ChoiceType::class définit le type checkbox 
             ->add('stars', ChoiceType::class, [
                 'label' => 'Rating',
                 'choices'  => [
@@ -39,12 +42,14 @@ class TrainerType extends AbstractType
                     '6' => 6,
                 ],
             ])
+            // définit la relation entre subject et trainer
             ->add('subjects', EntityType::class, [
                 'class' => Subject::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
                 'help' => 'Subject professor.',
+                // Query builder permet de faire une requête sur la base de données dans la table subject
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.name', 'DESC');

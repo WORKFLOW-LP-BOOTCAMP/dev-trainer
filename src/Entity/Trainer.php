@@ -17,6 +17,7 @@ class Trainer
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message : 'Ce champ ne peut être vide')]
     #[ORM\Column(length: 100)]
     private ?string $firstName = null;
 
@@ -37,13 +38,13 @@ class Trainer
     /**
      * @var Collection<int, Article>
      */
-    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'trainer',cascade: ['detach'], orphanRemoval: false)]
+    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'trainer')]
     private Collection $articles;
 
     /**
      * @var Collection<int, Subject>
      */
-    #[ORM\ManyToMany(targetEntity: Subject::class, mappedBy: 'trainers', cascade: ['detach'], orphanRemoval: false)]
+    #[ORM\ManyToMany(targetEntity: Subject::class, mappedBy: 'trainers')]
     private Collection $subjects;
 
     public function __construct()
