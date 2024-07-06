@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trainer;
+use App\Form\TrainerDeleteType;
 use App\Form\TrainerType;
 use App\Repository\TrainerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ class AdminTrainerController extends AbstractController
         $trainers = $trainerRepository->findAll();
 
         return $this->render('admin/trainer/list.html.twig', [
-            'trainers' => $trainers
+            'trainers' => $trainers,
         ]);
     }
 

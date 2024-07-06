@@ -32,4 +32,7 @@ return [
     '@symfony/stimulus-bundle' => [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
+    'sweetalert2' => [
+        'version' => '11.12.2',
+    ],
 ];

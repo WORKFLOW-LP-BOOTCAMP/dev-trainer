@@ -1,26 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TrainerController!
-{% endblock %}
+{% block title %}Hello TrainerController!{% endblock %}
 
 {% block body %}
 
-	<div class="container">
+<div class="container">
 		<div class="row">
 			<div class="col-md">
-                <p>Nombre d'article(s) {{ articles | length }}</p>
 				{% for article in articles %}
 					<div class="card">
 						<h5 class="card-header">{{ article.title }}</h5>
 						<div class="card-body">
-                            {% if article.trainer %}
-							<h5 class="card-title">
-                            {{article.trainer.firstName}}
-							</h5>
-                            {% endif %}
+							<h5 class="card-title">{{ article.trainer ? article.trainer.firstName : null }}
 						</div>
 					</div>
 				{% endfor %}
+			</div>
+			<div class="col-md">
+				PAS D'ARTICLE 
 			</div>
 		</div>
 	</div>
