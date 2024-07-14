@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Junior extends Trainer
 {
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $grade = null;
 
     #[ORM\Column(nullable: true)]

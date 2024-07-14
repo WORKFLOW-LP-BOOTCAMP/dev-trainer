@@ -11,7 +11,7 @@ use App\Enum\Domain as Domain;
 class Apprentice extends Trainer
 {
 
-    #[ORM\Column(type: 'string', enumType: Domain::class)]
+    #[ORM\Column(type: 'string', enumType: Domain::class, nullable:true)]
     private ?Domain $domain = null;
 
 

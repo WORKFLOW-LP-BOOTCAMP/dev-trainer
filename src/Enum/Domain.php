@@ -6,5 +6,5 @@ enum Domain: string
     case FullJS = 'full-js';
     case FullPHP = 'full-php';
     case Python = 'full-python';
-    case Stat = 'statistique';
+    case Stat = 'statistic';
 }

@@ -19,7 +19,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $subjects = $manager->getRepository(Subject::class)->findAll();
 
         // boucle qui crée les trainers
-        foreach ($this->data() as [
+        foreach ($this->trainers() as [
             'firstName' => $firsName,
             'lastName' => $lastName,
             'profession' => $profession,
@@ -58,7 +58,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function data(): array
+    public function trainers(): array
     {
 
         return  [
@@ -250,7 +250,9 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
 
         return [
             ArticleFixtures::class,
-            SubjectFixtures::class
+            SubjectFixtures::class,
+            ApprenticeFixtures::class,
+            JuniorFixtures::class,
         ] ;
     }
 
