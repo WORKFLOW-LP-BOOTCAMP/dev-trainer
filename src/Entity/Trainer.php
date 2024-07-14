@@ -9,6 +9,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\Entity]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorMap(['asistan' => Junior::class, 'apprentice' => Apprentice::class])]
 #[ORM\Entity(repositoryClass: TrainerRepository::class)]
 class Trainer
 {
