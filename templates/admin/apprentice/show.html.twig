@@ -1,0 +1,27 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+	<div class="card mb-6" style="max-width: 540px;">
+		<div class="row g-0">
+
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{ trainer.firstName }}
+						{{ trainer.lastName }}</h5>
+					<p class="card-text">{{ trainer.bio }}</p>
+					<p class="card-text">
+						{{ trainer.profession }}
+						<small class="text-muted">{{ trainer.stars }}</small>
+					</p>
+					{% include 'admin/trainer/partials/_form_delete.html.twig' with {'id': trainer.id } %}
+				</div>
+				<div class="col-md-4">
+					<p>
+						<a class="btn" href="{{path('app_admin_trainer')}}">back to list</a>
+					</p>
+				</div>
+				<p>{{ trainer.articles | length }}</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
