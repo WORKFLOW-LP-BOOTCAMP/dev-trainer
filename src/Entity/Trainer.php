@@ -9,19 +9,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\InheritanceType('SINGLE_TABLE')]
-#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
-#[ORM\DiscriminatorMap([
-    'trainer' => Trainer::class,
-    'junior' => Junior::class, 
-    'apprentice' => Apprentice::class])]
 #[ORM\Entity(repositoryClass: TrainerRepository::class)]
-class Trainer
+class Trainer extends User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[Assert\NotBlank(message : 'Ce champ ne peut être vide')]
     #[ORM\Column(length: 100)]
@@ -59,10 +49,6 @@ class Trainer
         $this->subjects = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getFirstName(): ?string
     {

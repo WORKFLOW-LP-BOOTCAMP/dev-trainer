@@ -6,7 +6,7 @@ use App\Repository\JuniorRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JuniorRepository::class)]
-class Junior extends Trainer
+class Junior extends User
 {
 
     #[ORM\Column(length: 255, nullable:true)]

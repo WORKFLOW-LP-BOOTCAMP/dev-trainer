@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Enum\Domain as Domain;
 
 #[ORM\Entity(repositoryClass: ApprenticeRepository::class)]
-class Apprentice extends Trainer
+class Apprentice extends User
 {
 
     #[ORM\Column(type: 'string', enumType: Domain::class, nullable:true)]
