@@ -13,7 +13,7 @@ final class JuniorListener
     {
         $event->getResponse()->setContent(
             str_replace(
-                'Yvette', '<span class="super-yvette">Yvette</span>',
+                'Yvette', '<span style="color:red" >Yvette</span>',
                 $event->getResponse()->getContent()
                 )
         );

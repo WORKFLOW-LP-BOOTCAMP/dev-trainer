@@ -13,9 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/admin',  name: 'app_admin_')]
 class AdminTrainerController extends AbstractController
 {
-    #[Route('/admin/trainer', name: 'app_admin_trainer')]
+    #[Route('trainer', name: 'trainers')]
     public function index(TrainerRepository $trainerRepository): Response
     {
         $trainers = $trainerRepository->findAll();
@@ -25,7 +26,7 @@ class AdminTrainerController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/trainer/create', name: 'app_trainer_create')]
+    #[Route('trainer/create', name: 'create_trainer')]
     public function createTrainer(Request $request, EntityManagerInterface $em): Response
     {
 
@@ -39,7 +40,7 @@ class AdminTrainerController extends AbstractController
 
             $this->addFlash('success', 'Trainer Created! Knowledge is power!');
 
-            return $this->redirectToRoute('app_admin_trainer');
+            return $this->redirectToRoute('app_admin_trainers');
         }
 
         return $this->render('admin/trainer/create.html.twig', [
@@ -47,7 +48,7 @@ class AdminTrainerController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/trainer/show/{id}', name: 'app_admin_trainer_show')]
+    #[Route('trainer/show/{id}', name: 'show_trainer')]
     public function showTrainer(Trainer $trainer): Response
     {
         // Dans ce contrôleur on utilise le resolver
@@ -57,7 +58,7 @@ class AdminTrainerController extends AbstractController
         ]);
     }
 
-    #[Route('/trainers/{id}/edit', name: 'admin_update_trainer')]
+    #[Route('trainers/{id}/edit', name: 'update_trainer')]
     public function updateTrainer( Trainer $trainer, Request $request,EntityManagerInterface $em): Response
     {
         $form = $this->createForm(TrainerType::class, $trainer);
@@ -68,7 +69,7 @@ class AdminTrainerController extends AbstractController
 
             $this->addFlash('success', 'Trainer Created! Knowledge is power!');
 
-            return $this->redirectToRoute('app_admin_trainer');
+            return $this->redirectToRoute('app_admin_trainers');
         }
 
         return $this->render('admin/trainer/edit.html.twig', [
@@ -77,7 +78,7 @@ class AdminTrainerController extends AbstractController
 
     }
 
-    #[Route('/admin/trainer/delete/{id}', name: 'delete_trainer')]
+    #[Route('trainer/delete/{id}', name: 'delete_trainer')]
     public function deleteTrainer(Trainer $trainer, Request $request, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete' . $trainer->getId(), $request->request->get('_token'))) {
@@ -87,6 +88,6 @@ class AdminTrainerController extends AbstractController
             $this->addFlash('delete success', 'Trainer Created! Knowledge is power!');
         }
 
-        return $this->redirectToRoute('app_admin_trainer');
+        return $this->redirectToRoute('app_admin_trainers');
     }
 }

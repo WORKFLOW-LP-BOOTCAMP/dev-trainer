@@ -11,9 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/admin',  name: 'app_admin_')]
 class ApprenticeController extends AbstractController
 {
-    #[Route('/admin/apprentice', name: 'app_admin_apprentice')]
+    #[Route('apprentice', name: 'apprentices')]
     public function index(ApprenticeRepository $apprenticeRepository): Response
     {
         $apprentices = $apprenticeRepository->findAll();
@@ -23,7 +24,7 @@ class ApprenticeController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/apprentice/create', name: 'app_apprentice_create')]
+    #[Route('apprentice/create', name: 'create_apprentice')]
     public function createapprentice(Request $request, EntityManagerInterface $em): Response
     {
 
@@ -37,7 +38,7 @@ class ApprenticeController extends AbstractController
 
             $this->addFlash('success', 'apprentice Created! Knowledge is power!');
 
-            return $this->redirectToRoute('app_admin_apprentice');
+            return $this->redirectToRoute('app_admin_apprentices');
         }
 
         return $this->render('admin/apprentice/create.html.twig', [

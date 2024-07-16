@@ -2,7 +2,7 @@
 
 {% block body %}
 	<h1 class="mb-4">apprentices List</h1>
-	<a href="{{ path('app_apprentice_create')}}" class="btn btn-primary mb-3">Create New apprentice</a>
+	<a href="{{ path('app_admin_create_apprentice')}}" class="btn btn-primary mb-3">Create New apprentice</a>
 	<table class="table table-success table-striped">
 		<thead>
 			<tr>
@@ -19,7 +19,7 @@
 					<td>{{ apprentice.firstName }}</td>
 					<td>{{ apprentice.lastName }}</td>
 					<td>{{ apprentice.profession }}</td>
-					<td>{{ apprentice.domain.value }}</td>
+					<td>{{ apprentice.domain.value|capitalize }}</td>
 					<td>
 						No action 
 					</td>

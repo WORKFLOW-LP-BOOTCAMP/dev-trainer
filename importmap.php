@@ -35,4 +35,7 @@ return [
     'sweetalert2' => [
         'version' => '11.12.2',
     ],
+    'chart.js' => [
+        'version' => '3.9.1',
+    ],
 ];

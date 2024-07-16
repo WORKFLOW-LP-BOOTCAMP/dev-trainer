@@ -35,6 +35,7 @@ class ApprenticieSubscriber implements EventSubscriberInterface
             && $method === 'createapprentice'
             && $event->getRequest()->getMethod() === 'POST'
         ) {
+            $count = $this->em->getRepository(Log::class)->count();
             $log = new Log;
             $log->setCreatedAt(new \DateTime('now'));
             $firsName = $event->getRequest()->request->all()['apprentice']['firstName'];
@@ -42,7 +43,8 @@ class ApprenticieSubscriber implements EventSubscriberInterface
             $log->setMetaInfo([
                 'name' => $firsName,
                 'date' => $log->getCreatedAt(),
-                'apprentice' => 'CDA'
+                'apprentice' => 'CDA',
+                'count' => $count + 1
             ]);
             $this->em->persist($log);
             $this->em->flush();
