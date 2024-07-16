@@ -17,7 +17,7 @@ class JuniorFixtures extends Fixture
     {
         $junior = new Junior();
         $junior->setAge(23);
-        $junior->setFirstName('Mat');
+        $junior->setFirstName('Mats');
         $junior->setLastName('C');
         $junior->setEmail('junior@junior.fr');
         $junior->setBio('bac');
