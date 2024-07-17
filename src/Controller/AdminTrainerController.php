@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Trainer;
-use App\Form\TrainerDeleteType;
 use App\Form\TrainerType;
 use App\Repository\TrainerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,13 +11,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin',  name: 'app_admin_')]
 class AdminTrainerController extends AbstractController
 {
-    #[Route('trainer', name: 'trainers')]
+    #[Route('/trainer', name: 'trainers')]
     public function index(TrainerRepository $trainerRepository): Response
     {
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $trainers = $trainerRepository->findAll();
 
         return $this->render('admin/trainer/list.html.twig', [
@@ -26,7 +29,7 @@ class AdminTrainerController extends AbstractController
         ]);
     }
 
-    #[Route('trainer/create', name: 'create_trainer')]
+    #[Route('/trainer/create', name: 'create_trainer')]
     public function createTrainer(Request $request, EntityManagerInterface $em): Response
     {
 
@@ -48,7 +51,7 @@ class AdminTrainerController extends AbstractController
         ]);
     }
 
-    #[Route('trainer/show/{id}', name: 'show_trainer')]
+    #[Route('/trainer/show/{id}', name: 'show_trainer')]
     public function showTrainer(Trainer $trainer): Response
     {
         // Dans ce contrôleur on utilise le resolver
@@ -58,7 +61,7 @@ class AdminTrainerController extends AbstractController
         ]);
     }
 
-    #[Route('trainers/{id}/edit', name: 'update_trainer')]
+    #[Route('/trainers/{id}/edit', name: 'update_trainer')]
     public function updateTrainer( Trainer $trainer, Request $request,EntityManagerInterface $em): Response
     {
         $form = $this->createForm(TrainerType::class, $trainer);
@@ -78,7 +81,7 @@ class AdminTrainerController extends AbstractController
 
     }
 
-    #[Route('trainer/delete/{id}', name: 'delete_trainer')]
+    #[Route('/trainer/delete/{id}', name: 'delete_trainer')]
     public function deleteTrainer(Trainer $trainer, Request $request, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete' . $trainer->getId(), $request->request->get('_token'))) {

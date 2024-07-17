@@ -1,7 +1,7 @@
 {% extends "admin.html.twig" %}
 
 {% block body %}
-	<h1 class="mb-4">Trainers List</h1>
+	<h1 class="mb-4">Trainers List {% if app.user %} - Hello {{ app.user.firstName|capitalize }} {% endif %}</h1>
 	<a href="{{ path('app_admin_create_trainer')}}" class="btn btn-primary mb-3">Create New Trainer</a>
 	<table class="table table-success table-striped">
 		<thead>

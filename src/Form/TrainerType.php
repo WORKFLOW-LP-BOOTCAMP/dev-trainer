@@ -12,13 +12,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class TrainerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // TextType::class définit le type des champs
             ->add('firstName', TextType::class, [
                 'label' => 'FirstName',
                 'required' => false
@@ -27,7 +30,18 @@ class TrainerType extends AbstractType
                 'label' => 'LastName'
             ])
             ->add('profession')
-            ->add('bio')
+            ->add('email')
+            ->add(
+                'password',
+                RepeatedType::class,
+                [
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'The password fields must match.',
+                    'first_options'  => ['label' => 'Password'],
+                    'second_options' => ['label' => 'Repeat Password'],
+                ]
+            )
+            ->add('bio', TextareaType::class)
             // ChoiceType::class définit le type checkbox 
             ->add('stars', ChoiceType::class, [
                 'label' => 'Rating',
@@ -56,8 +70,8 @@ class TrainerType extends AbstractType
                 },
                 'by_reference' => false,
                 /**
-                 * Lorsque by_reference est défini sur false, Symfony utilise les méthodes add et remove définies sur l'entité pour manipuler la collection
-                 */
+             * Lorsque by_reference est défini sur false, Symfony utilise les méthodes add et remove définies sur l'entité pour manipuler la collection
+             */
             ]);
     }
 

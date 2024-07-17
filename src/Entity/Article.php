@@ -82,4 +82,9 @@ class Article
 
         return $this;
     }
+
+    public function getOwner():?Trainer{
+
+        return ($this->trainer ? $this->trainer : null );
+    }
 }

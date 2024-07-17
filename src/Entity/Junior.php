@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\JuniorRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JuniorRepository::class)]
@@ -12,9 +13,8 @@ class Junior extends User
     #[ORM\Column(length: 255, nullable:true)]
     private ?string $grade = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $age = null;
-
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $school = null;
 
     public function getGrade(): ?string
     {
@@ -28,15 +28,16 @@ class Junior extends User
         return $this;
     }
 
-    public function getAge(): ?float
+    public function getSchool(): ?string
     {
-        return $this->age;
+        return $this->school;
     }
 
-    public function setAge(?float $age): static
+    public function setSchool(?string $school): static
     {
-        $this->age = $age;
+        $this->school = $school;
 
         return $this;
     }
+
 }

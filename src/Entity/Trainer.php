@@ -12,20 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: TrainerRepository::class)]
 class Trainer extends User
 {
-
-    #[Assert\NotBlank(message : 'Ce champ ne peut être vide')]
-    #[ORM\Column(length: 100)]
-    private ?string $firstName = null;
-
-    #[ORM\Column(length: 100)]
-    private ?string $lastName = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $profession = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $bio = null;
-   
     #[Assert\LessThan(value :6, message: 'valeur trop grande' )]
     #[Assert\GreaterThan(value :-1, message: 'valeur trop petite' )]
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
@@ -48,56 +34,6 @@ class Trainer extends User
         $this->articles = new ArrayCollection();
         $this->subjects = new ArrayCollection();
     }
-
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): static
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): static
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    public function getProfession(): ?string
-    {
-        return $this->profession;
-    }
-
-    public function setProfession(?string $profession): static
-    {
-        $this->profession = $profession;
-
-        return $this;
-    }
-
-    public function getBio(): ?string
-    {
-        return $this->bio;
-    }
-
-    public function setBio(?string $bio): static
-    {
-        $this->bio = $bio;
-
-        return $this;
-    }
-
 
     public function getStars(): ?int
     {

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+
+{% if article %}
+<ul>
+    <li>{{article.title }}</li>
+    {% if article.trainer.firstName %}
+    <p>{{ article.trainer.firstName  }}</p>
+   
+    {% endif %}
+</ul>
+{% else %}
+<p>Aucun article</p>
+{% endif %}
+
+{% endblock %}

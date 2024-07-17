@@ -5,12 +5,15 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Subject;
 use App\Entity\Trainer;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class AppFixtures extends Fixture implements DependentFixtureInterface
+
+class AppFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     private UserPasswordHasherInterface $passwordHasher;
@@ -21,10 +24,9 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     }
     public function load(ObjectManager $manager): void
     {
-       
-        // repository pour récupérer les données dans la base de données
-        $articles = $manager->getRepository(Article::class)->findAll();
-        $subjects = $manager->getRepository(Subject::class)->findAll();
+         // repository pour récupérer les données dans la base de données
+         $subjects = $manager->getRepository(Subject::class)->findAll();
+         $articles = $manager->getRepository(Article::class)->findAllArticleNoSuperTrainer( firstName : 'Super trainer');
 
         // boucle qui crée les trainers
         foreach ($this->trainers() as [
@@ -39,9 +41,9 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
             $trainer->setLastName($lastName);
             $trainer->setEmail($email);
             $trainer->setProfession($profession);
-            $trainer->setBio($bio);
+
             $trainer->setStars(random_int(1, 5));
-            $plainPassword = '123';
+            $plainPassword = (string)  random_int(1, 100);
             $hashedPassword = $this->passwordHasher->hashPassword($trainer, $plainPassword);
             $trainer->setPassword($hashedPassword);
 
@@ -51,6 +53,9 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
             shuffle($articles);
             while (count($articles) > 0 && $count < $rand) {
                 $articleTrainer = array_pop($articles);
+                if(random_int(1,5) === 1) 
+                    $trainer->setRoles(['ROLE_APPRENTICE']);
+                
                 $trainer->addArticle($articleTrainer);
                 $count++;
             }
@@ -59,8 +64,8 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
             $count = 0;
             $countSubjects = count($subjects);
             $rand =  random_int(1, $countSubjects);
-            shuffle($subjects) ;
-            while( $count < $rand ){
+            shuffle($subjects);
+            while ($count < $rand) {
                 $trainer->addSubject($subjects[$count]);
                 $count++;
             }
@@ -286,18 +291,22 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
                 "email" => "camille.f@example.com"
             ]
         ];
-    
     }
 
     // cette méthode permet de définir l'ordre dans lequel les fixtures doivent se faire, ce comportement est défini dans l'interface que la classe AppFixture implémente, attention l'implémentation de cette interface est nécessaire.
-    public function getDependencies() {
+    public function getDependencies()
+    {
 
         return [
+            AdminFixtures::class,
             ArticleFixtures::class,
             SubjectFixtures::class,
             ApprenticeFixtures::class,
             JuniorFixtures::class,
-        ] ;
+        ];
     }
-
+    public static function getGroups(): array
+    {
+        return ['group1'];
+    }
 }

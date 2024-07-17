@@ -10,11 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin',  name: 'app_admin_')]
 class ApprenticeController extends AbstractController
 {
-    #[Route('apprentice', name: 'apprentices')]
+    #[Route('/apprentice', name: 'apprentices')]
     public function index(ApprenticeRepository $apprenticeRepository): Response
     {
         $apprentices = $apprenticeRepository->findAll();
@@ -24,7 +27,7 @@ class ApprenticeController extends AbstractController
         ]);
     }
 
-    #[Route('apprentice/create', name: 'create_apprentice')]
+    #[Route('/apprentice/create', name: 'create_apprentice')]
     public function createapprentice(Request $request, EntityManagerInterface $em): Response
     {
 

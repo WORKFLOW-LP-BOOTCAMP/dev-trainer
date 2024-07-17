@@ -14,7 +14,6 @@ class Apprentice extends User
     #[ORM\Column(type: 'string', enumType: Domain::class, nullable:true)]
     private ?Domain $domain = null;
 
-
     public function getDomain(): ?Domain
     {
         return $this->domain;
@@ -26,4 +25,6 @@ class Apprentice extends User
 
         return $this;
     }
+
+    
 }

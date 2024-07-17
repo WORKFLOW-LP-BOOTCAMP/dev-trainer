@@ -1,23 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TrainerController!{% endblock %}
+{% block title %}Hello TrainerController!
+{% endblock %}
 
 {% block body %}
 
-<div class="container">
+	<div class="container">
 		<div class="row">
 			<div class="col-md">
 				{% for article in articles %}
 					<div class="card">
-						<h5 class="card-header">{{ article.title }}</h5>
+						<h5 class="card-header">
+							<a href="{{path('app_show_article', { id : article.id })}}">
+								{{ article.title }}</a>
+						</h5>
 						<div class="card-body">
-							<h5 class="card-title">{{ article.trainer ? article.trainer.firstName : null }}
+							<h5 class="card-title">
+								{{ article.trainer ? article.trainer.firstName : null }}</h5>
+							<p>Role(s)
+								<ul>
+									{% for role in article.trainer.roles %}
+										<li>
+											<small>{{role}}</small>
+										</li>
+									{% endfor %}
+								</ul>
+							</p>
 						</div>
 					</div>
 				{% endfor %}
 			</div>
 			<div class="col-md">
-				PAS D'ARTICLE 
+				PAS D'ARTICLE
 			</div>
 		</div>
 	</div>

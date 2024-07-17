@@ -4,10 +4,11 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
 use App\Entity\Article;
 
-class ArticleFixtures extends Fixture
+class ArticleFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -63,5 +64,10 @@ class ArticleFixtures extends Fixture
                 ['title' => 'Développement Web avec ASP.NET Core', 'created_at' => '2024-05-29 23:00:00', 'content' => 'Apprenez à développer des applications Web avec ASP.NET Core.'],
                 ['title' => 'Introduction à Docker', 'created_at' => '2024-05-28 08:00:00', 'content' => 'Découvrez Docker, un outil de conteneurisation pour développer, expédier et exécuter des applications.'],
             ];
+    }
+
+    public static function getGroups(): array
+    {
+        return ['group1'];
     }
 }

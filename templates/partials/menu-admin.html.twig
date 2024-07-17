@@ -15,6 +15,15 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="{{path('app_admin_apprentices')}}">Admin Apprentice</a>
 				</li>
+				{% if app.user %}
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+					</li>
+				{% else %}
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('app_login') }}">Login</a>
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>
