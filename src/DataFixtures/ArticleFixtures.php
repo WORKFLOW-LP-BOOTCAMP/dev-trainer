@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
 use App\Entity\Article;
+use App\Enum\Status;
 
 class ArticleFixtures extends Fixture implements FixtureGroupInterface
 {

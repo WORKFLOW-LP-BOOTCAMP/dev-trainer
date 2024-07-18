@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Status;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,6 +30,9 @@ class Article
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(name: "trainer_id", referencedColumnName: "id", onDelete: "SET NULL")]
     private ?Trainer $trainer = null;
+
+    #[ORM\Column(length: 255, enumType: Status::class, nullable:true)]
+    private ?string $status = null;
 
     public function getId(): ?int
     {
@@ -87,4 +91,17 @@ class Article
 
         return ($this->trainer ? $this->trainer : null );
     }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
 }

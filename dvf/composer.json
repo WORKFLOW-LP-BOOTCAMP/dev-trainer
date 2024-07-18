@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "LaPasserelle\\ModelsML\\": "src/"
+        }
+    },
+    "require": {
+        "rubix/ml": "^2.5"
+    }
+}

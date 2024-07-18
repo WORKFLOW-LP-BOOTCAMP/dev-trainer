@@ -33,6 +33,7 @@ class ApprenticeFixtures extends Fixture implements FixtureGroupInterface
             $apprentices->setFirstName($firsName);
             $apprentices->setLastName($lastName);
             $apprentices->setDomain($domain);
+            $apprentices->setRoles(['ROLE_APPRENTICE']);
             $apprentices->setBio($bio);
             $apprentices->setEmail($email);
             $plainPassword = '123';

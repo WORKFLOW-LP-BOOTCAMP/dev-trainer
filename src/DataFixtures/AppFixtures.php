@@ -26,7 +26,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface, FixtureG
     {
          // repository pour récupérer les données dans la base de données
          $subjects = $manager->getRepository(Subject::class)->findAll();
-         $articles = $manager->getRepository(Article::class)->findAllArticleNoSuperTrainer( firstName : 'Super trainer');
+         $articles = $manager->getRepository(Article::class)->findAll();
 
         // boucle qui crée les trainers
         foreach ($this->trainers() as [

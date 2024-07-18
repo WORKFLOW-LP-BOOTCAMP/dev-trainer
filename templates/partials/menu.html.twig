@@ -12,9 +12,11 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="{{ path('app_article') }}">articles</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="{{ path('app_admin_trainers') }}">Admin</a>
-				</li>
+				{% if app.user and app.user.roles in 'ROLE_ADMIN' %}
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('app_admin_trainers') }}">Admin</a>
+					</li>
+				{% endif %}
 				{% if app.user %}
 					<li class="nav-item active">
 						<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
@@ -24,7 +26,7 @@
 						<a class="nav-link" href="{{ path('app_login') }}">Login</a>
 					</li>
 				{% endif %}
-				{% if app.user %}
+				{% if app.user  %}
 					<li class="nav-item active text-color-white">
 						<a class="nav-link">Connect :
 							{{ app.user.firstName }}

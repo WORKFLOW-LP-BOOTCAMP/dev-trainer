@@ -23,59 +23,52 @@ class ArticleVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
+       
         if (!in_array($attribute, [self::VIEW, self::EDIT, self::SHOW])) {
             return false;
         }
-
+        
         if (!$subject instanceof Article) {
             return false;
         }
-
         return true;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
+
         $user = $token->getUser();
-        if (!$user instanceof Trainer || !$user instanceof User) {
+        if (( !$user instanceof User ) && (!$user instanceof Trainer) ) {
             return false;
         }
 
-        /** @var Article $article */
-        $article = $subject;
-        dump($article);
-        dump($user === $article->getOwner());   
-        dd($article->getTrainer()->getFirstName());
-
         return match($attribute) {
-            self::VIEW => $this->canView($article, $user),
-            self::EDIT => $this->canEdit($article, $user),
-            self::SHOW => $this->canShow($article, $user),
+            self::VIEW => $this->canView($subject, $user),
+            self::EDIT => $this->canEdit($subject, $user),
+            self::SHOW => $this->canShow($subject, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
     }
 
-    private function canView(Article $article, User $user): bool
+    private function canView(Article $article, User|Trainer $user): bool
     {
         // if they can edit, they can view
-        if ($this->canEdit($article, $user)) {
+        if ( $this->canEdit($article, $user) ) {
             return true;
         }
 
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
-
-        // Assuming the Article entity has an isPrivate method
-        return true;
+        
+        return $article->getOwner()->getId() === $user->getId();
     }
 
     private function canEdit(Article $article, User $user): bool
     {
         // Assuming the Article entity has a getOwner method
-        //return $user === $article->getOwner();
+        return $article->getOwner()->getId() === $user->getId();
 
-        return true;
     }
 
     private function canShow(Article $article, User $user): bool
@@ -89,7 +82,8 @@ class ArticleVoter extends Voter
         }
 
         // Assuming the Article entity has an isPrivate method
-        return true;
+        return $article->getOwner()->getId() === $user->getId();
+
     }
 
 }

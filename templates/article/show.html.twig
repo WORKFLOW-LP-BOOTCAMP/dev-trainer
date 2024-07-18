@@ -3,17 +3,19 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-
-{% if article %}
-<ul>
-    <li>{{article.title }}</li>
-    {% if article.trainer.firstName %}
-    <p>{{ article.trainer.firstName  }}</p>
-   
-    {% endif %}
-</ul>
-{% else %}
-<p>Aucun article</p>
-{% endif %}
-
+	{% if article %}
+		<div class="container">
+			<div class="row">
+				<div class="col-md">
+                	<div class="card">
+						<h5 class="card-header">{{ article.trainer.firstName  }}</h5>
+                        <p>{{article.title}}</p>
+                        <p>{{article.content}}</p>
+                    </div>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<p>Aucun article</p>
+	{% endif %}
 {% endblock %}
