@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Trainer;
-use App\Enum\Status;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,7 +19,6 @@ class ArticleType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('content')
-            ->add('status', Status::class)
             ->add('trainer', EntityType::class, [
                 'class' => Trainer::class,
                 'choice_label' => 'id',

@@ -7,6 +7,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md">
+				{{ predict_value | json_encode }}
 				{% for trainer in trainers %}
 					<div class="card">
 						<h5 class="card-header">{{ trainer.profession }}</h5>

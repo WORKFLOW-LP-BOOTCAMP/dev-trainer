@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `paris_valeur_fonciere`
 --
 
-DROP TABLE IF EXISTS `paris_valeur_fonciere`;
+DROP TABLE IF EXISTS `P`;
 CREATE TABLE IF NOT EXISTS `paris_valeur_fonciere` (
   `id` int NOT NULL AUTO_INCREMENT,
   `date_mutation` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
