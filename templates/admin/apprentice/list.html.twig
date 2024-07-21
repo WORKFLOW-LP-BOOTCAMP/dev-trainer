@@ -14,17 +14,19 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for apprentice in apprentices %}
-				<tr>
-					<td>{{ apprentice.firstName }}</td>
-					<td>{{ apprentice.lastName }}</td>
-					<td>{{ apprentice.profession }}</td>
-					<td>{{ apprentice.domain.value|capitalize }}</td>
-					<td>
-						No action 
-					</td>
-				</tr>
-			{% endfor %}
+			{% if apprentices %}
+				{% for apprentice in apprentices %}
+					<tr>
+						<td>{{ apprentice.firstName }}</td>
+						<td>{{ apprentice.lastName }}</td>
+						<td>{{ apprentice.profession }}</td>
+						<td>{{ apprentice.domain.value|capitalize }}</td>
+						<td>
+							No action
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
 		</tbody>
 	</table>
 {% endblock %}

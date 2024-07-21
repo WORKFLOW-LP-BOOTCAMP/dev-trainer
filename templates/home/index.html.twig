@@ -8,27 +8,30 @@
 		<div class="row">
 			<div class="col-md">
 				{{ predict_value | json_encode }}
-				{% for trainer in trainers %}
-					<div class="card">
-						<h5 class="card-header">{{ trainer.profession }}</h5>
-						<div class="card-body">
-							<h5 class="card-title">{{ trainer.firstName }}
-								{{ trainer.lastName }}</h5>
-							<p class="card-text">{{ trainer.bio }}</p>
-							<a href="{{path('app_show', {id: trainer.id})}}" class="btn btn-primary">En savoir plus</a>
+				{% if trainers %}
+					{% for trainer in trainers %}
+						<div class="card">
+							<h5 class="card-header">{{ trainer.profession }}</h5>
+							<div class="card-body">
+								<h5 class="card-title">{{ trainer.firstName }}
+									{{ trainer.lastName }}</h5>
+								<p class="card-text">{{ trainer.bio }}</p>
+								<a href="{{path('app_show', {id: trainer.id})}}" class="btn btn-primary">En savoir plus</a>
+							</div>
 						</div>
-					</div>
-				{% endfor %}
-			</div>
-			<div class="col-md">
-				{% for article in articles %}
-					<li>{{ article.title }}
-						<p>{{ article.date }}</p>
-						<p>{{ article.content }}</p>
-					</li>
-				{% endfor %}
+					{% endfor %}
+				</div>
+				<div class="col-md">
+					{% if articles %}
+						{% for article in articles %}
+							<li>{{ article.title }}
+								<p>{{ article.date }}</p>
+								<p>{{ article.content }}</p>
+							</li>
+						{% endfor %}
+					{% endif %}
 
+				</div>
 			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}

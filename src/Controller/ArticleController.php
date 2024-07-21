@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 class ArticleController extends AbstractController
 {
     #[Route('/article', name: 'app_article')]

@@ -1,7 +1,12 @@
 {% extends "admin.html.twig" %}
 
 {% block body %}
-	<h1 class="mb-4">Trainers List {% if app.user %} - Hello {{ app.user.firstName|capitalize }} {% endif %}</h1>
+	<h1 class="mb-4">Trainers List
+		{% if app.user %}
+			- Hello
+			{{ app.user.firstName|capitalize }}
+		{% endif %}
+	</h1>
 	<a href="{{ path('app_admin_create_trainer')}}" class="btn btn-primary mb-3">Create New Trainer</a>
 	<table class="table table-success table-striped">
 		<thead>
@@ -15,26 +20,29 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for trainer in trainers %}
-				<tr>
-					<td>{{ trainer.firstName }}</td>
-					<td>{{ trainer.lastName }}</td>
-					<td>{{ trainer.profession }}</td>
-					<td>{{ trainer.articles | length }}</td>
-					<td>
-						{% if trainer.subjects %}
-							{% for subject in trainer.subjects %}
-								<span>{{subject.name}}</span>
-							{% endfor %}
-						{% endif %}
-					</td>
-					<td>
-						<a href="{{path('app_admin_show_trainer', {id: trainer.id})}}" class="btn btn-info btn-sm">View</a>
-						<a href="{{path('app_admin_update_trainer', { id : trainer.id })}}" class="btn btn-warning btn-sm">Edit</a>
-						{% include 'admin/trainer/partials/_form_delete.html.twig' with {'id': trainer.id } %}
-					</td>
-				</tr>
-			{% endfor %}
+			{% if trainer %}
+				{% for trainer in trainers %}
+					<tr>
+						<td>{{ trainer.firstName }}</td>
+						<td>{{ trainer.lastName }}</td>
+						<td>{{ trainer.profession }}</td>
+						<td>{{ trainer.articles | length }}</td>
+						<td>
+							{% if trainer.subjects %}
+								{% for subject in trainer.subjects %}
+									<span>{{subject.name}}</span>
+								{% endfor %}
+							{% endif %}
+						</td>
+						<td>
+							<a href="{{path('app_admin_show_trainer', {id: trainer.id})}}" class="btn btn-info btn-sm">View</a>
+							<a href="{{path('app_admin_update_trainer', { id : trainer.id })}}" class="btn btn-warning btn-sm">Edit</a>
+							{% include 'admin/trainer/partials/_form_delete.html.twig' with {'id': trainer.id } %}
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+
 		</tbody>
 	</table>
 {% endblock %}

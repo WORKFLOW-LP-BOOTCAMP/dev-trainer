@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\ModelDVF;
+use App\Service\ModelDVFService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(ModelDVF $model): Response
+    public function index(ModelDVFService $model): Response
     {
         // la méthode retourne un tableau, on peut utiliser les clés du tableau directement à partir de la méthode
         $trainers = $this->data()['trainers'];
