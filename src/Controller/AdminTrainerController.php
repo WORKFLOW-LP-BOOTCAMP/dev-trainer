@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trainer;
+use App\Entity\User;
 use App\Form\TrainerType;
 use App\Repository\TrainerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -17,9 +19,20 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class AdminTrainerController extends AbstractController
 {
     #[Route('/trainer', name: 'trainers')]
-    public function index(TrainerRepository $trainerRepository): Response
+    public function index(EntityManagerInterface $manager,
+        TrainerRepository $trainerRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $admin = new User();
+        $admin->setFirstName('admin');
+        $admin->setLastName('L');
+        $admin->setEmail('admin@admin.fr');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $plainPassword = 'admin';
+        $hashedPassword = $passwordHasher->hashPassword($admin, $plainPassword);
+        $admin->setPassword($hashedPassword);
+        $manager->persist($admin);
 
         $trainers = $trainerRepository->findAll();
 
