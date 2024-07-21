@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
-#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin',  name: 'app_admin_')]
 class ApprenticeController extends AbstractController
 {
