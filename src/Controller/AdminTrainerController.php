@@ -24,16 +24,6 @@ class AdminTrainerController extends AbstractController
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $admin = new User();
-        $admin->setFirstName('admin');
-        $admin->setLastName('L');
-        $admin->setEmail('admin@admin.fr');
-        $admin->setRoles(['ROLE_ADMIN']);
-        $plainPassword = 'admin';
-        $hashedPassword = $passwordHasher->hashPassword($admin, $plainPassword);
-        $admin->setPassword($hashedPassword);
-        $manager->persist($admin);
-
         $trainers = $trainerRepository->findAll();
 
         return $this->render('admin/trainer/list.html.twig', [
@@ -105,4 +95,30 @@ class AdminTrainerController extends AbstractController
 
         return $this->redirectToRoute('app_admin_trainers');
     }
+
+    #[Route('/trainer', name: 'admin_create')]
+    public function createAdmin(EntityManagerInterface $manager,
+        TrainerRepository $trainerRepository, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $admin = new User();
+        $admin->setFirstName('admin');
+        $admin->setLastName('L');
+        $admin->setEmail('admin@admin.fr');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $plainPassword = 'admin';
+        $hashedPassword = $passwordHasher->hashPassword($admin, $plainPassword);
+        $admin->setPassword($hashedPassword);
+        $manager->persist($admin);
+        $manager->flush();
+
+        $trainers = $trainerRepository->findAll();
+
+        return $this->render('admin/trainer/list.html.twig', [
+            'trainers' => $trainers,
+        ]);
+    }
+
+    
 }
