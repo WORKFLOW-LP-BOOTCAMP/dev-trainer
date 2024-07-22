@@ -6,6 +6,8 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav">
+			{{app.user.firstName }}
+			{{app.user.roles | json_decode }}
 				<li class="nav-item active">
 					<a class="nav-link" href="{{ path('app_home') }}">Home</a>
 				</li>
