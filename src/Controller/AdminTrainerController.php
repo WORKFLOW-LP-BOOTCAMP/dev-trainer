@@ -96,7 +96,7 @@ class AdminTrainerController extends AbstractController
         return $this->redirectToRoute('app_admin_trainers');
     }
 
-    #[Route('/trainer', name: 'admin_create')]
+    #[Route('/trainer/admin/create', name: 'admin_create')]
     public function createAdmin(EntityManagerInterface $manager,
         TrainerRepository $trainerRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
