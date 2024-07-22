@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use Rubix\ML\Datasets\Unlabeled;
-use Rubix\ML\Loggers\Logger;
 use Rubix\ML\PersistentModel;
 use Rubix\ML\Persisters\Filesystem;
 
@@ -15,7 +14,7 @@ class ModelDVFService
     const DIR_MODELS  = __DIR__ . '/saved_models';
     private ?PersistentModel $estimator = null;
 
-    private string $filename = 'dvf_model_84.rbx' ;
+    private string $filename = 'dvf_model_84.rbx';
 
     function loadSavedModel()
     {
@@ -30,4 +29,3 @@ class ModelDVFService
         return round($predictions[0], 2);
     }
 }
-
