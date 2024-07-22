@@ -96,9 +96,8 @@ class AdminTrainerController extends AbstractController
         return $this->redirectToRoute('app_admin_trainers');
     }
 
-    #[Route('/trainer/admin/create', name: 'admin_create')]
-    public function createAdmin(EntityManagerInterface $manager,
-        TrainerRepository $trainerRepository, UserPasswordHasherInterface $passwordHasher): Response
+    #[Route('/createadmin', name: 'admin_create_new')]
+    public function createAdmin(EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher): Response
     {
         // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
@@ -113,11 +112,7 @@ class AdminTrainerController extends AbstractController
         $manager->persist($admin);
         $manager->flush();
 
-        $trainers = $trainerRepository->findAll();
-
-        return $this->render('admin/trainer/list.html.twig', [
-            'trainers' => $trainers,
-        ]);
+        return $this->redirectToRoute('app_admin_trainers');
     }
 
     
